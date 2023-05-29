@@ -1,0 +1,6 @@
+Servers/
+.metadata/
+java_servlet_jsp/.metadata/
+java_servlet_jsp/build/
+java_servlet_jsp/.classpath/
+java_servlet_jsp/.settings/
