@@ -29,4 +29,5 @@ public class Constant {
 	public static final String COLONNE_TEL="tel";
 	public static final String COLONNE_DATE_NAISSANCE="date_naissance";
 	public static final String COLONNE_PASSWORD="mot_de_passe";
+	public static final String SESSION_NAME = "ma_session";
 }

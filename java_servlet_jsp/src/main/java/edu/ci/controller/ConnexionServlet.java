@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
@@ -20,7 +22,7 @@ import edu.ci.util.InscriptionForm;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(urlPatterns = {"/connexion", "/"})
+@WebServlet(urlPatterns = {"/connexion"})
 public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,7 +65,14 @@ public class ConnexionServlet extends HttpServlet {
 			try {
 				Utilisateur utilisateur = dao.rechercheParEmail(login.getUsername());
 				if (utilisateur!=null && utilisateur.getMotDePasse().equals(login.getPassword())) {
+					HttpSession session = request.getSession();
+					session.setAttribute(Constant.SESSION_NAME, utilisateur.getEmail());
+					session.setMaxInactiveInterval(2*60);
 					response.sendRedirect(request.getContextPath() + "/accueil");
+					/*
+					  this.getServletContext() .getRequestDispatcher(Constant.VIEW_ACCUEIL)
+					  .forward(request, response);
+					 */
 				}else {
 					request.setAttribute(Constant.CHAMP_LOGIN, login.getUsername());
 					request.setAttribute(Constant.MESSAGE, "Email ou mot de passe incorrect.");

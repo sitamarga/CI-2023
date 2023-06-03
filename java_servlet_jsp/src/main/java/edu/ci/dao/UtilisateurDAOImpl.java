@@ -77,13 +77,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         Utilisateur utilisateur = new Utilisateur();
         while (resultSet.next() && !check) {
             check = true;
-            utilisateur.setId(resultSet.getInt(Constant.COLONNE_ID));
-            utilisateur.setMatricule(resultSet.getString(Constant.COLONNE_MATRICULE));
-            utilisateur.setNom(resultSet.getString(Constant.COLONNE_NOM));
-            utilisateur.setEmail(resultSet.getString(Constant.COLONNE_EMAIL));
-            utilisateur.setTel(resultSet.getString(Constant.COLONNE_TEL));
-            utilisateur.setMotDePasse(resultSet.getString(Constant.COLONNE_PASSWORD));
-            utilisateur.setDateNaissance(DateUtils.asLocalDate(resultSet.getDate(Constant.COLONNE_DATE_NAISSANCE)));
+            utilisateur = extractUser(resultSet);
         }
 		return utilisateur;
 	}
@@ -98,13 +92,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         Utilisateur utilisateur = new Utilisateur();
         while (resultSet.next() && !check) {
             check = true;
-            utilisateur.setId(resultSet.getInt(Constant.COLONNE_ID));
-            utilisateur.setMatricule(resultSet.getString(Constant.COLONNE_MATRICULE));
-            utilisateur.setNom(resultSet.getString(Constant.COLONNE_NOM));
-            utilisateur.setEmail(resultSet.getString(Constant.COLONNE_EMAIL));
-            utilisateur.setTel(resultSet.getString(Constant.COLONNE_TEL));
-            utilisateur.setMotDePasse(resultSet.getString(Constant.COLONNE_PASSWORD));
-            utilisateur.setDateNaissance(DateUtils.asLocalDate(resultSet.getDate(Constant.COLONNE_DATE_NAISSANCE)));
+            utilisateur = extractUser(resultSet);
         }
 		return utilisateur;
 	}
@@ -117,17 +105,21 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		ResultSet resultSet = statement.executeQuery();
         List<Utilisateur> utilisateurs = new ArrayList<>();
         while (resultSet.next()) {
-        	Utilisateur utilisateur = new Utilisateur();
-            utilisateur.setId(resultSet.getInt(Constant.COLONNE_ID));
-            utilisateur.setMatricule(resultSet.getString(Constant.COLONNE_MATRICULE));
-            utilisateur.setNom(resultSet.getString(Constant.COLONNE_NOM));
-            utilisateur.setEmail(resultSet.getString(Constant.COLONNE_EMAIL));
-            utilisateur.setTel(resultSet.getString(Constant.COLONNE_TEL));
-            utilisateur.setMotDePasse(resultSet.getString(Constant.COLONNE_PASSWORD));
-            utilisateur.setDateNaissance(DateUtils.asLocalDate(resultSet.getDate(Constant.COLONNE_DATE_NAISSANCE)));
-            utilisateurs.add(utilisateur);
+        	utilisateurs.add(extractUser(resultSet));
         }
 		return utilisateurs;
+	} 
+	
+	private Utilisateur extractUser(ResultSet resultSet) throws SQLException {
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setId(resultSet.getInt(Constant.COLONNE_ID));
+        utilisateur.setMatricule(resultSet.getString(Constant.COLONNE_MATRICULE));
+        utilisateur.setNom(resultSet.getString(Constant.COLONNE_NOM));
+        utilisateur.setEmail(resultSet.getString(Constant.COLONNE_EMAIL));
+        utilisateur.setTel(resultSet.getString(Constant.COLONNE_TEL));
+        utilisateur.setMotDePasse(resultSet.getString(Constant.COLONNE_PASSWORD));
+        utilisateur.setDateNaissance(DateUtils.asLocalDate(resultSet.getDate(Constant.COLONNE_DATE_NAISSANCE)));
+        return utilisateur;
 	}
 
 }
