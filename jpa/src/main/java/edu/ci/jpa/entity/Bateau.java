@@ -2,10 +2,7 @@ package edu.ci.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @création 23/06/2023
@@ -18,6 +15,8 @@ import lombok.Setter;
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bateau {
 
     @Id
@@ -26,7 +25,13 @@ public class Bateau {
     private Long id;
 
     @Column(name = "nom")
-    private String name;
+    private String nom;
+
+    private Integer capacite;
+
+    private Integer equipage;
+
+    private String couleur;
 
     @OneToOne(mappedBy = "bateau")
     @JsonIgnoreProperties("bateau")

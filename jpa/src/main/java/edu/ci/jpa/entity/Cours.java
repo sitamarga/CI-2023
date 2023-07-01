@@ -7,28 +7,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.GenerationType.AUTO;
+
 /**
- * @création 23/06/2023
+ * @création 01/07/2023
  * @projet jpa
  * @auteur tsyta.diallo
  * @package edu.ci.jpa.entity
  */
 
-@Table(name = "commandants")
 @Entity
-@Builder
+@Table(name = "cours")
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class Commandant {
+@AllArgsConstructor
+public class Cours {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = AUTO)
     private Long id;
-    private String name;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_bateau")
-    @JsonIgnoreProperties("commandant")
-    private Bateau bateau;
+    private String libelle;
+    private Integer nbHeure;
+    @ManyToOne
+    @JoinColumn(name = "id_ens")
+    @JsonIgnoreProperties("cours")
+    private Enseignant enseignant;
 }
